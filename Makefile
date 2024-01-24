@@ -1,22 +1,41 @@
-NAME = fractol
+NAME := fractol
 
-CFLAGS = -Wall -Wextra -Werror -w
+OS := $(shell uname)
 
-MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework Appkit
+ifeq ($(OS), Linux)
+	MLXDIR := mlx_linux
+	MLXNAME := mlx_Linux
+	INC := -I/usr/include -I$(MLXDIR)
+	MLX := $(MLXDIR)/lib$(MLXNAME).a
+	MLXFLAGS := -L$(MLXDIR) -l$(MLXNAME) -L/usr/lib -lXext -lX11 -lm -lz
 
-LIBFT = libft/libft.a
+else
+	MLXDIR := mlx_macos
+	MLXNAME := mlx
+	INC := -I$(MLXDIR)
+	MLX := $(MLXDIR)/lib$(MLXNAME).a
+	MLXFLAGS := -L$(MLXDIR) -l$(MLXNAME) -framework OpenGL -framework Appkit
+endif
 
-MLX = mlx/libmlx.a
+CFLAGS := -Wall -Wextra -Werror -O3
 
-FUNCTIONS = fractol \
+LIBFT := libft/libft.a
 
-SRCDIR = src
+FILES := fractol \
+		 math \
+		 utils \
+		 events \
+		 mandelbrot \
+		 julia \
+		 burningship
 
-SRC = $(SRCDIR)/$(FUNCTIONS:%=%.c)
+SRCDIR := src
 
-OBJDIR = obj
+SRC := $(FILES:%=$(SRCDIR)/%.c)
 
-OBJ = $(OBJDIR)/$(FUNCTIONS:%=%.o)
+OBJDIR := obj
+
+OBJ := $(FILES:%=$(OBJDIR)/%.o)
 
 all: $(NAME)
 
@@ -25,17 +44,17 @@ $(NAME): $(OBJ) $(LIBFT) $(MLX)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
-	@cc $(CFLAGS) -Imlx -c $< -o $@
+	@cc $(CFLAGS) $(INC) -c $< -o $@
 
 $(LIBFT):
-	@make -s re -C ./libft
+	@make -sC ./libft
 
 $(MLX):
-	@make -s re -C ./mlx
+	@make -sC ./$(MLXDIR)
 
 clean:
 	@make -s fclean -C ./libft
-	@make -s clean -C ./mlx
+	@make -s clean -C ./$(MLXDIR)
 	@rm -rf $(OBJDIR)
 
 fclean: clean
