@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../inc/fractol.h"
 
 double	ft_sqrt(double nb)
 {

@@ -6,11 +6,11 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 14:01:59 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/24 16:34:52 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:44:05 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../inc/fractol.h"
 
 t_complex	ft_complex_init(double re, double im)
 {
@@ -56,4 +56,41 @@ void	ft_pixel_to_image(t_img *data, int x, int y, int colour)
 
 	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
 	*(unsigned int *) dst = colour;
+}
+
+int	ft_calculate_pixel(t_context *c, double re, double im)
+{
+	if (c->fractal == MANDELBROT)
+		return (ft_mandelbrot(c, re, im));
+	else if (c->fractal == JULIA)
+		return (ft_julia(c, re, im));
+	else if (c->fractal == BURNINGSHIP)
+		return (ft_burningship(c, re, im));
+	else
+		return (0);
+}
+
+void	ft_draw_fractal(t_context *c)
+{
+	double	re;
+	double	im;
+	int		i;
+
+	mlx_clear_window(c->mlx, c->win);
+	c->pix.y = -1;
+	while (c->pix.y++ < H)
+	{
+		c->pix.x = -1;
+		while (c->pix.x++ < W)
+		{
+			re = c->min.x + ((double) c->pix.x * (c->max.x - c->min.x) / W);
+			im = c->min.y + ((double) c->pix.y * (c->max.y - c->min.y) / H);
+			i = ft_calculate_pixel(c, re, im);
+			if (i == c->iter_max)
+				ft_pixel_to_image(&c->img, c->pix.x, c->pix.y, 0xFFFFFF);
+			else
+				ft_pixel_to_image(&c->img, c->pix.x, c->pix.y, 0x000000);
+		}
+	}
+	mlx_put_image_to_window(c->mlx, c->win, c->img.img, 0, 0);
 }

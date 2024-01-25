@@ -5,14 +5,14 @@ OS := $(shell uname)
 ifeq ($(OS), Linux)
 	MLXDIR := mlx_linux
 	MLXNAME := mlx_Linux
-	INC := -I/usr/include -I$(MLXDIR)
+	INC := -I/usr/include -I$(MLXDIR) -I./inc
 	MLX := $(MLXDIR)/lib$(MLXNAME).a
 	MLXFLAGS := -L$(MLXDIR) -l$(MLXNAME) -L/usr/lib -lXext -lX11 -lm -lz
 
 else
 	MLXDIR := mlx_macos
 	MLXNAME := mlx
-	INC := -I$(MLXDIR)
+	INC := -I$(MLXDIR) -I./inc
 	MLX := $(MLXDIR)/lib$(MLXNAME).a
 	MLXFLAGS := -L$(MLXDIR) -l$(MLXNAME) -framework OpenGL -framework Appkit
 endif
@@ -37,6 +37,8 @@ OBJDIR := obj
 
 OBJ := $(FILES:%=$(OBJDIR)/%.o)
 
+NOPRINT = 1> /dev/null 2> /dev/null
+
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX)
@@ -50,11 +52,11 @@ $(LIBFT):
 	@make -sC ./libft
 
 $(MLX):
-	@make -sC ./$(MLXDIR)
+	@make -sC ./$(MLXDIR) --no-print-directory $(NOPRINT)
 
 clean:
 	@make -s fclean -C ./libft
-	@make -s clean -C ./$(MLXDIR)
+	@make -s clean -C ./$(MLXDIR) $(NOPRINT)
 	@rm -rf $(OBJDIR)
 
 fclean: clean

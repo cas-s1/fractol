@@ -6,14 +6,14 @@
 /*   By: co-neill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 11:21:53 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/24 16:31:44 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:19:43 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <mlx.h>
 
 // LINUX KEYCODES
@@ -64,8 +64,8 @@
 # endif
 
 // CONSTANTS
-# define WIDTH 1280
-# define HEIGHT 720
+# define W 1280
+# define H 720
 # define MANDELBROT_DEFAULT_RE 0
 # define MANDELBROT_DEFAULT_IM 0
 # define JULIA_DEFAULT_RE -1
@@ -86,6 +86,12 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+}	t_pos;
+
 typedef struct s_complex
 {
 	double	x;
@@ -103,6 +109,7 @@ typedef struct s_context
 	int			fractal;
 	int			iter_max;
 	int			limit;
+	t_pos		pix;
 	t_img		img;
 	t_complex	julia_values;
 	t_complex	max;
