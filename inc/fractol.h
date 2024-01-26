@@ -6,13 +6,14 @@
 /*   By: co-neill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 11:21:53 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/25 11:19:43 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/26 10:58:04 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
+# include <stdio.h>
 # include "../libft/libft.h"
 # include <mlx.h>
 
@@ -64,8 +65,8 @@
 # endif
 
 // CONSTANTS
-# define W 1280
-# define H 720
+# define W 640
+# define H 360
 # define MANDELBROT_DEFAULT_RE 0
 # define MANDELBROT_DEFAULT_IM 0
 # define JULIA_DEFAULT_RE -1
@@ -117,12 +118,14 @@ typedef struct s_context
 }	t_context;
 
 // fractol.c
-int			ft_destroy_window(t_context *context);
+int			ft_destroy_window(t_context *c);
 
 // utils.c
 t_complex	ft_complex_init(double re, double im);
 double		ft_atod(char *s);
 void		ft_pixel_to_image(t_img *data, int x, int y, int colour);
+int			ft_calculate_pixel(t_context *c, double re, double im);
+void		ft_draw_fractal(t_context *c);
 
 // math.c
 double		ft_sqrt(double nb);
@@ -132,12 +135,15 @@ t_complex	ft_complex_multiply(t_complex a, t_complex b);
 t_complex	ft_complex_square(t_complex z);
 
 // mandelbrot.c
-void	ft_m_params(t_context *context);
+void	ft_m_params(t_context *c);
+int		ft_mandelbrot(t_context *c, double re, double im);
 
 // julia.c
-void	ft_j_params(t_context *context, double re, double im);
+void	ft_j_params(t_context *c, double re, double im);
+int		ft_julia(t_context *c, double re, double im);
 
 // burningship.c
-void	ft_b_params(t_context *context);
+void	ft_b_params(t_context *c);
+int		ft_burningship(t_context *c, double re, double im);
 
 #endif

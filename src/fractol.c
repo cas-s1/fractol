@@ -6,7 +6,7 @@
 /*   By: co-neill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 10:44:11 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/25 11:23:55 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/26 11:25:24 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ int	main(int ac, char **av)
 		ft_b_params(&c);
 	else
 		ft_program_instructions();
+	c.iter_max = 32;
+	c.limit = MAX_ITERS;
 	ft_create_window(&c);
-	//ft_draw(&context);
+	ft_draw_fractal(&c);
 	mlx_hook(c.win, 17, 0, ft_destroy_window, &c);
 	mlx_loop(c.mlx);
 	return (0);
