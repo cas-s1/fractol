@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 14:01:59 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/28 16:28:51 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/28 22:33:34 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void	ft_draw_fractal(t_context *c)
 
 	mlx_clear_window(c->mlx, c->win);
 	c->pix.y = -1;
-	while (c->pix.y++ < H)
+	while (c->pix.y++ < (H - 1))
 	{
 		c->pix.x = -1;
-		while (c->pix.x++ < W)
+		while (c->pix.x++ < (W - 1))
 		{
 			re = c->min.x + ((double) c->pix.x * (c->max.x - c->min.x) / W);
 			im = c->min.y + ((double) c->pix.y * (c->max.y - c->min.y) / H);
