@@ -6,7 +6,7 @@
 /*   By: co-neill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 10:44:11 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/28 22:09:36 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/28 22:29:48 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_clean_and_exit(t_context *c)
 	mlx_clear_window(c->mlx, c->win);
 	mlx_destroy_image(c->mlx, c->img.img);
 	mlx_destroy_window(c->mlx, c->win);
-	mlx_destroy_display(c->mlx);
+	free(c->mlx);
 	free(c->colours);
 	exit(EXIT_SUCCESS);
 	return (0);
