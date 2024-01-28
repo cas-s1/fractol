@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:17:13 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/26 18:13:48 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/28 21:56:21 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,6 @@ double	ft_modulus(t_complex z)
 	return (res);
 }
 
-t_complex	ft_complex_sum(t_complex a, t_complex b)
-{
-	t_complex	res;
-
-	res.x = a.x + b.x;
-	res.y = a.y + b.y;
-	return (res);
-}
-
 t_complex	ft_complex_multiply(t_complex a, t_complex b)
 {
 	t_complex	res;
@@ -58,4 +49,24 @@ t_complex	ft_complex_square(t_complex z)
 
 	res = ft_complex_multiply(z, z);
 	return (res);
+}
+
+double	ft_generate_random(void)
+{
+	double	result;
+	int		fd;
+	int		n;
+
+	fd = open("/dev/urandom", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("fd failure");
+		close(fd);
+		exit(1);
+	}
+	read(fd, &n, 4);
+	n %= 200;
+	result = n / 100.0;
+	close(fd);
+	return (result);
 }

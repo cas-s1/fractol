@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:39:36 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/28 19:44:34 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/28 21:58:11 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static void	ft_move(int keycode, t_context *c)
 		c->max.y += 0.1 * (c->max.y - c->min.y);
 		c->min.y += 0.1 * (c->max.y - c->min.y);
 	}
-	else
-		ft_putnbr_fd(keycode, 2);
 }
 
 static void	ft_zoom(t_context *c, double re, double im, int direction)
@@ -55,10 +53,10 @@ static void	ft_zoom(t_context *c, double re, double im, int direction)
 		width *= 1.05;
 		height *= 1.05;
 	}
-	c->max.x = re + (width / 2);
-	c->max.y = im + (height / 2);
-	c->min.x = re - (width / 2);
-	c->min.y = im - (height / 2);
+	c->max.x = re + (width / 4);
+	c->max.y = im + (height / 4);
+	c->min.x = re - (width / 4);
+	c->min.y = im - (height / 4);
 }
 
 static void	ft_change_iterations(int keycode, t_context *c)
@@ -82,7 +80,7 @@ int	ft_key_input(int keycode, t_context *c)
 	else if (keycode == KEY_M)
 		ft_m_params(c);
 	else if (keycode == KEY_J)
-		ft_j_params(c, JULIA_DEFAULT_RE, JULIA_DEFAULT_IM);
+		ft_j_params(c, ft_generate_random(), ft_generate_random());
 	else if (keycode == KEY_B)
 		ft_b_params(c);
 	else if (keycode == KEY_PLUS || keycode == KEY_MINUS)

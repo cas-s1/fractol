@@ -6,7 +6,7 @@
 /*   By: co-neill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 11:21:53 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/28 16:30:10 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/28 21:57:14 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FRACTOL_H
 
 # include <stdio.h>
+# include <fcntl.h>
 # include "../libft/libft.h"
 # include <mlx.h>
 # include "colours.h"
@@ -45,9 +46,9 @@ void		ft_draw_fractal(t_context *c);
 // math.c
 double		ft_sqrt(double nb);
 double		ft_modulus(t_complex z);
-t_complex	ft_complex_sum(t_complex a, t_complex b);
 t_complex	ft_complex_multiply(t_complex a, t_complex b);
 t_complex	ft_complex_square(t_complex z);
+double		ft_generate_random(void);
 
 // mandelbrot.c
 void		ft_m_params(t_context *c);

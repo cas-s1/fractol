@@ -6,7 +6,7 @@
 /*   By: co-neill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 10:44:11 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/28 16:43:03 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/28 22:09:36 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,17 @@ static void	ft_program_instructions(void)
 	exit(EXIT_SUCCESS);
 }
 
+static void	ft_print_controls(void)
+{
+	ft_putstr_fd("- Use arrow keys or WASD to move around the fractal\n", 1);
+	ft_putstr_fd("- Zoom to mouse position by scrolling\n", 1);
+	ft_putstr_fd("- Using the C key will cycle through colour options\n", 1);
+	ft_putstr_fd("- Use M, J and B keys to switch fractal\n", 1);
+	ft_putstr_fd("- Using the J key will generate a random parameter\n", 1);
+	ft_putstr_fd("- + / - will add / reduce iterations\n", 1);
+	ft_putstr_fd("- Use the ESC key or window cross to exit\n", 1);
+}
+
 int	main(int ac, char **av)
 {
 	t_context	c;
@@ -74,6 +85,7 @@ int	main(int ac, char **av)
 		ft_program_instructions();
 	ft_init_global(&c);
 	ft_draw_fractal(&c);
+	ft_print_controls();
 	mlx_loop(c.mlx);
 	return (0);
 }
