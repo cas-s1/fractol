@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:27:56 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/26 11:23:11 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:07:13 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	ft_m_params(t_context *c)
 {
 	c->name = "mandelbrot";
 	c->fractal = MANDELBROT;
-	c->max.x = 2.0;
-	c->max.y = 2.0;
-	c->min.x = -2.0;
-	c->min.y = -2.0;
+	c->max.x = 1.0;
+	c->max.y = 1.5;
+	c->min.x = -3.0;
+	c->min.y = -1.5;
 }
 
 int	ft_mandelbrot(t_context *c, double re, double im)
@@ -31,7 +31,7 @@ int	ft_mandelbrot(t_context *c, double re, double im)
 	i = -1;
 	while (i++ < c->iter_max)
 	{
-		if (z.r > 2.0)
+		if (ft_modulus(z) > 2.0)
 			break ;
 		z = ft_complex_square(z);
 		z.x += re;

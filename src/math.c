@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:17:13 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/24 15:02:38 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:13:48 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ double	ft_sqrt(double nb)
 		return (0);
 	x = nb / 2;
 	i = 0;
-	while (i++ <= 4)
+	while (i++ < 2)
 		x = 0.5 * (x + (nb / x));
 	return (x);
 }
@@ -40,7 +40,6 @@ t_complex	ft_complex_sum(t_complex a, t_complex b)
 
 	res.x = a.x + b.x;
 	res.y = a.y + b.y;
-	res.r = ft_modulus(res);
 	return (res);
 }
 
@@ -50,7 +49,6 @@ t_complex	ft_complex_multiply(t_complex a, t_complex b)
 
 	res.x = (a.x * b.x) - (a.y * b.y);
 	res.y = (a.x * b.y) + (a.y * b.x);
-	res.r = ft_modulus(res);
 	return (res);
 }
 

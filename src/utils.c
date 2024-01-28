@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 14:01:59 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/26 11:41:50 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:28:51 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_complex	ft_complex_init(double re, double im)
 
 	z.x = re;
 	z.y = im;
-	z.r = ft_modulus(z);
 	return (z);
 }
 
@@ -50,7 +49,7 @@ double	ft_atod(char *s)
 	return (left + right);
 }
 
-void	ft_pixel_to_image(t_img *data, int x, int y, int colour)
+void	ft_pix_to_img(t_img *data, int x, int y, int colour)
 {
 	char	*dst;
 
@@ -87,9 +86,9 @@ void	ft_draw_fractal(t_context *c)
 			im = c->min.y + ((double) c->pix.y * (c->max.y - c->min.y) / H);
 			i = ft_calculate_pixel(c, re, im);
 			if (i == c->iter_max + 1)
-				ft_pixel_to_image(&c->img, c->pix.x, c->pix.y, 0x000000);
+				ft_pix_to_img(&c->img, c->pix.x, c->pix.y, 0x000000);
 			if (i < c->iter_max)
-				ft_pixel_to_image(&c->img, c->pix.x, c->pix.y, 0x00FF00);
+				ft_pix_to_img(&c->img, c->pix.x, c->pix.y, c->colours[i % 16]);
 		}
 	}
 	mlx_put_image_to_window(c->mlx, c->win, c->img.img, 0, 0);

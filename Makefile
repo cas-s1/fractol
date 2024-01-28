@@ -24,10 +24,11 @@ LIBFT := libft/libft.a
 FILES := fractol \
 		 math \
 		 utils \
-		 events \
 		 mandelbrot \
 		 julia \
-		 burningship
+		 burningship \
+		 colours \
+		 events \
 
 SRCDIR := src
 

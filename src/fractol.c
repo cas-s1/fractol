@@ -6,32 +6,40 @@
 /*   By: co-neill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 10:44:11 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/26 11:25:24 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:43:03 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
 
-static void	ft_create_window(t_context *c)
+static void	ft_init_global(t_context *c)
 {
 	c->mlx = mlx_init();
 	c->win = mlx_new_window(c->mlx, W, H, c->name);
 	c->img.img = mlx_new_image(c->mlx, W, H);
 	c->img.addr = mlx_get_data_addr(c->img.img, 
 			&c->img.bpp, &c->img.line_len, &c->img.endian);
-	if (!c->mlx || !c->win || !c->img.img)
+	c->iter_max = 64;
+	c->limit = MAX_ITERS;
+	c->colour_index = 0;
+	ft_init_colours(c);
+	mlx_hook(c->win, 17, 0, ft_clean_and_exit, c);
+	mlx_key_hook(c->win, ft_key_input, c);
+	mlx_mouse_hook(c->win, ft_mouse_input, c);
+	if (!c->mlx || !c->win || !c->img.img || !c->colours)
 	{
-		ft_putstr_fd("MLX memory failure", 2);
+		ft_putstr_fd("Memory allocation failure", 2);
 		exit(1);
 	}
 }
 
-int	ft_destroy_window(t_context *c)
+int	ft_clean_and_exit(t_context *c)
 {
 	mlx_clear_window(c->mlx, c->win);
 	mlx_destroy_image(c->mlx, c->img.img);
 	mlx_destroy_window(c->mlx, c->win);
 	mlx_destroy_display(c->mlx);
+	free(c->colours);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
@@ -64,11 +72,8 @@ int	main(int ac, char **av)
 		ft_b_params(&c);
 	else
 		ft_program_instructions();
-	c.iter_max = 32;
-	c.limit = MAX_ITERS;
-	ft_create_window(&c);
+	ft_init_global(&c);
 	ft_draw_fractal(&c);
-	mlx_hook(c.win, 17, 0, ft_destroy_window, &c);
 	mlx_loop(c.mlx);
 	return (0);
 }

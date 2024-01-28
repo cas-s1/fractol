@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:54:37 by co-neill          #+#    #+#             */
-/*   Updated: 2024/01/26 11:48:50 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:14:16 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_julia(t_context *c, double re, double im)
 	i = -1;
 	while (i++ < c->iter_max)
 	{
-		if (z.r > 2.0)
+		if (ft_modulus(z) > 2.0)
 			break ;
 		z = ft_complex_square(z);
 		z.x += c->julia_values.x;
